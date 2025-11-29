@@ -1,23 +1,15 @@
-const http = require('http');
+const express = require('express');
+const app = express();
+const postsRouter = require('./routes/posts.routes');
+app.get("/",(req,res)=>{
+    return res.status(200).send("This is the backend")
+})
 
-// Define the port and response message
-const PORT = 3000;
-const MESSAGE = 'Hello, World!';
+app.use(express.json());
 
-console.log('Starting server...');
+// Mount the posts router
+app.use('/api/v1/posts', postsRouter);
 
-// Create the server
-const server = http.createServer((req, res) => {
-  res.statusCode = 200; // Success
-  res.setHeader('Content-Type', 'text/plain');
-  res.end(MESSAGE);
-});
-
-// Start the server
-server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
-});
-
-server.on('error', (err) => {
-  console.error('Server error:', err);
+app.listen(3000, () => {
+    console.log('Server is running on http://localhost:3000');
 });
