@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const postController = require('../controllers/posts.controller');
 
-// GET /api/v1/posts
-router.get('/', (req, res) => {
-    res.json([
-        { id: 1, title: "First Post", content: "Welcome to Blogify!" },
-        { id: 2, title: "Second Post", content: "Modular routing is awesome." }
-    ]);
-});
+// GET all posts
+router.get('/', postController.getAllPosts);
+
+// GET single post (DYNAMIC ROUTE)
+router.get('/:postId', postController.getPostById);
 
 module.exports = router;
