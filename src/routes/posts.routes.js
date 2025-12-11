@@ -1,11 +1,14 @@
+// src/routes/posts.routes.js
 const express = require('express');
 const router = express.Router();
-const postController = require('../controllers/posts.controller');
+const postsController = require('../controllers/posts.controller');
+const { validateCreatePost } = require('../middleware/validate');
 
-// GET all posts
-router.get('/', postController.getAllPosts);
-
-// GET single post (DYNAMIC ROUTE)
-router.get('/:postId', postController.getPostById);
+// Route definitions only — delegate to controllers
+router.get('/', postsController.getAllPosts);
+router.get('/:id', postsController.getPostById);
+router.post('/', validateCreatePost, postsController.createPost);
+router.put('/:id', validateCreatePost, postsController.updatePost);
+router.delete('/:id', postsController.deletePost);
 
 module.exports = router;
