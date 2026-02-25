@@ -1,9 +1,10 @@
-// src/routes/index.js
 const express = require('express');
+const authRoutes = require('./auth.routes');
+const postRoutes = require('./posts.routes');
+
 const router = express.Router();
 
-const postsRouter = require('./posts.routes');
-
-router.use('/posts', postsRouter);
+router.use('/auth', authRoutes);
+router.use('/posts', postRoutes);
 
 module.exports = router;

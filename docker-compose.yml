@@ -1,0 +1,27 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blogify_api
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: mongodb://db:27017/blogify_db
+      PORT: 3000
+      JWT_SECRET: dev_secret
+    depends_on:
+      - db
+    volumes:
+      - ./src:/home/appuser/app/src
+
+  db:
+    image: mongo:6
+    container_name: blogify_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - db-data:/data/db
+
+volumes:
+  db-data:
